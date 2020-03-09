@@ -1,0 +1,14 @@
+[
+  {
+    "key": "생산실적등록",
+    "value": "com.ahpro.listandheadfooter.MainActivity"
+  },
+  {
+    "key": "출고등록",
+    "value": "com.ahpro.listandheadfooter.MainActivity"
+  },
+  {
+    "key": "시스템 설정",
+    "value": "com.ahpro.listandheadfooter.MainActivity"
+  }
+]

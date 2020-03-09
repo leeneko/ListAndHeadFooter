@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tvDocNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="번호 :"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/DocNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="DocNum"
+        app:layout_constraintStart_toEndOf="@+id/tvDocNum"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvItemCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="품목코드 :"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDocNum" />
+
+    <TextView
+        android:id="@+id/ItemCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="ItemCode"
+        app:layout_constraintStart_toEndOf="@+id/tvItemCode"
+        app:layout_constraintTop_toBottomOf="@+id/DocNum" />
+
+    <TextView
+        android:id="@+id/ItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="ItemName"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvItemCode" />
+
+    <TextView
+        android:id="@+id/PostDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="PostDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvPostDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="생산지시 :"
+        app:layout_constraintEnd_toStartOf="@+id/PostDate"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/DueDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="DueDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/PostDate" />
+
+    <TextView
+        android:id="@+id/tvDueDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="생산완료"
+        app:layout_constraintEnd_toStartOf="@+id/DueDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvPostDate" />
+
+    <TextView
+        android:id="@+id/Quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Quantity"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tvQuantity"
+        app:layout_constraintTop_toBottomOf="@+id/ItemName" />
+
+    <TextView
+        android:id="@+id/tvQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="생산지시수량 :"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ItemName" />
+
+    <TextView
+        android:id="@+id/InventoryUOM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="UOM"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/Quantity"
+        app:layout_constraintTop_toBottomOf="@+id/ItemName" />
+
+    <TextView
+        android:id="@+id/tvRemarks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="비고 :"
+        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvQuantity" />
+
+    <TextView
+        android:id="@+id/Remarks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/tvRemarks"
+        app:layout_constraintTop_toBottomOf="@+id/tvQuantity" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="생산완료수량 :"
+        app:layout_constraintEnd_toStartOf="@+id/CompletedQuantity"
+        app:layout_constraintTop_toBottomOf="@+id/ItemName" />
+
+    <TextView
+        android:id="@+id/CompletedQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="CmplQty"
+        android:textColor="#009688"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/InventoryUOM2"
+        app:layout_constraintTop_toBottomOf="@+id/ItemName" />
+
+    <TextView
+        android:id="@+id/InventoryUOM2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="UOM"
+        android:textColor="#009688"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ItemName" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
