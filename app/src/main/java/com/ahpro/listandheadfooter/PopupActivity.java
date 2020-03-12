@@ -77,13 +77,30 @@ public class PopupActivity extends Activity {
         btnSubmit.setOnClickListener(new View.OnClickListener() { // 확인 버튼
             @Override
             public void onClick(View v) {
+                // 키보드 숨기기
                 InputMethodManager immhide = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                 immhide.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-                Intent intent = new Intent();
-                intent.putExtra("ItemCode", String.valueOf(etItemCode.getText()));
-                intent.putExtra("BatchNum", String.valueOf(etBatchNumber.getText()));
-                intent.putExtra("Quantity", String.valueOf(etQuantity.getText()));
-                setResult(RESULT_OK, intent);
+
+                int i_qty;
+                String s_qty = String.valueOf(etQuantity.getText());
+
+                if (!s_qty.equals("")) {
+                    i_qty = Integer.parseInt(s_qty);
+                } else {
+                    i_qty = 0;
+                }
+
+                if (i_qty >= 0) {
+                    Intent intent = new Intent();
+                    intent.putExtra("ItemCode", String.valueOf(etItemCode.getText()));
+                    intent.putExtra("BatchNum", String.valueOf(etBatchNumber.getText()));
+                    intent.putExtra("Quantity", String.valueOf(i_qty));
+                    setResult(RESULT_OK, intent);
+                } else {
+
+                    setResult(RESULT_CANCELED);
+                    finish();
+                }
                 finish();
             }
         });
