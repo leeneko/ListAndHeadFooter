@@ -1,12 +1,12 @@
 package com.ahpro.listandheadfooter;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
@@ -19,10 +19,14 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -43,10 +47,27 @@ public class MainActivity extends AppCompatActivity {
     private List<ListItem> arData;
     private ListAdapter adapter;
 
+    private ProgressDialog progressDialog;
+
+    private static final String TAG = "LogWrapper";
+
+    private static final Logger LOG = LoggerFactory.getLogger(MainActivity.class.getSimpleName());
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        AppSettings.logPath = getFilesDir().getPath() + "/log/";
+        /* // LOG
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date time = new Date();
+        String time1 = format.format(time);
+        FileLogHandlerConfiguration fileHandler = LoggerConfiguration.fileLogHandler(this);
+        fileHandler.setRotateFilesCountLimit(9);
+        // fileHandler.setFullFilePathPattern(getFilesDir().getAbsolutePath() + "/log/" + time1 + ".%g.%u.log");
+        LoggerConfiguration.configuration().addHandlerToRootLogger(fileHandler);
+        */
 
         init();
     }
@@ -72,26 +93,6 @@ public class MainActivity extends AppCompatActivity {
                 if (!drawer.isDrawerOpen(GravityCompat.START)) {
                     drawer.openDrawer(GravityCompat.START);
                 }
-                /*
-                // Snackbar.make(v, "메뉴 버튼 클릭", Snackbar.LENGTH_LONG).show();
-                //AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("AlertDialog Title");
-                builder.setMessage("메뉴 버튼을 클릭했습니다");
-                builder.setPositiveButton("예",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                Snackbar.make(v, "Positive 클릭", Snackbar.LENGTH_LONG).show();
-                            }
-                        });
-                builder.setNegativeButton("아니오",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                Snackbar.make(v, "Negative 클릭", Snackbar.LENGTH_LONG).show();
-                            }
-                        });
-                builder.show();
-                */
             }
         });
         header_title = findViewById(R.id.header_title);
@@ -146,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    int cnt = 5;
+    int i = 0;
     private void SubMenuSet() {
         final Map<String, Class<?>> btnActs = new LinkedHashMap<>();
         ListView listView = findViewById(R.id.test_nav_list);
@@ -166,14 +169,24 @@ public class MainActivity extends AppCompatActivity {
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String key = jsonObject.getString("key");
+                String key = jsonObject.getString("keys");
                 String value = jsonObject.getString("value");
                 // Log.d("롴_키, 밸류 ", key + ", " + value);
                 Class<?> c = Class.forName(value);
                 btnActs.put(key, c);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            while (cnt > i++) {
+                StringWriter sw = new StringWriter();
+                e.printStackTrace(new PrintWriter(sw));
+                String exceptionAsStrting = sw.toString();
+                /* // LOG
+                LOG.debug("SubMenuSet() Exception:{}", exceptionAsStrting);
+                 */
+                AddLog.error("SubMenuSet()", exceptionAsStrting);
+                SubMenuSet();
+            }
         }
         // 메뉴와 ListView 연결
         final List<String> arData = new ArrayList<>();
@@ -197,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 String popupItemCode = data.getStringExtra("ItemCode");
@@ -216,5 +229,28 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void loading() {
+        //로딩
+        new android.os.Handler().postDelayed(
+                new Runnable() {
+                    public void run() {
+                        progressDialog = new ProgressDialog(getApplicationContext());
+                        progressDialog.setIndeterminate(true);
+                        progressDialog.setMessage("잠시만 기다려 주세요");
+                        progressDialog.show();
+                    }
+                }, 0);
+    }
+
+    public void loadingEnd() {
+        new android.os.Handler().postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.dismiss();
+                    }
+                }, 0);
     }
 }

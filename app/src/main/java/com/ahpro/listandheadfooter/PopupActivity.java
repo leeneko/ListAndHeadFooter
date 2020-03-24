@@ -28,7 +28,6 @@ public class PopupActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀바 없애기
         setContentView(R.layout.activity_popup);
 
-
         init();
     }
 
